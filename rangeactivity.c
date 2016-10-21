@@ -21,10 +21,10 @@
 //	return false;
 //}
 
-void sort(int *a, int l)
+void sort(int *a, int *b, int l)
 {
 	int i,j;
-	int v;
+	int v,t;
 	for (i=0;i<l-1;i++)
 		for(j=i+1;j<l;j++)
 		{
@@ -33,6 +33,10 @@ void sort(int *a, int l)
 				v=a[i];
 				a[i]=a[j];
 				a[j]=v;
+
+				t = b[i];
+				b[i]=b[j];
+				b[j]=t;
 			}
 		}
 }
@@ -41,7 +45,7 @@ int main()
 {
 	int num = 0;
 	int i,j;
-	int result = 0;
+	int result = 1;
 	//struct line lines[MAX];
 	int begin[MAX];
 	int end[MAX];
@@ -51,14 +55,17 @@ int main()
 		scanf("%d %d",&begin[i], &end[i]);
 	}
 
-	sort(end, num);
+	sort(end, begin, num);
 
 	//sort(lines, lines+num, cmp);
 
 	for(i=0;i<num;i++)
 		for (j=i+1;j<num;j++)
-			if (end[i] > begin[j])
+			if (end[i] <= begin[j])
+			{
 				result ++;
+				i = j;
+			}
 
 	printf("%d\n", result);
 
